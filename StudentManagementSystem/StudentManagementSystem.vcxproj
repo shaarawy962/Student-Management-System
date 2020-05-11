@@ -150,6 +150,7 @@
     <ClCompile Include="StudentManagementSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Subject.h" />
     <ClInclude Include="Student.h" />
   </ItemGroup>
