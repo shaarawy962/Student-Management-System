@@ -52,6 +52,14 @@ public:
 		in >> param.total;
 		return in;
 	}
+
+	friend std::ostream& operator <<(std::ostream& out, Subject& param)
+	{
+		out << param.subjectName << "\n";
+		out << param.gradePointAverage << "\n";
+		out << param.grade << "\n";
+		out << param.total << "\n";
+	}
 };
 
 //class SubjectList
@@ -265,6 +273,11 @@ public:
 		Subject* curr = new Subject();
 		std::cin >> *curr;
 		append(curr);
+	}
+
+	friend std::ostream& operator <<(std::ostream& out, SubjectList& param)
+	{
+		
 	}
 
 protected:

@@ -48,6 +48,14 @@ public:
 		return this->Courses;
 	}
 
+	friend std::ostream& operator <<(std::ostream& out, Student& param)
+	{
+		out << param.Name << "\n";
+		out << param.dept << "\n";
+		out << param.ID << "\n";
+		out << param.Courses;
+	}
+
 	friend class StudentList;
 };
 
@@ -264,6 +272,35 @@ public:
 	Student* getCurr()
 	{
 		return curr;
+	}
+
+	void find(unsigned int key)
+	{
+		Student* currStud = head;
+
+		if (currStud == NULL)
+		{
+			std::cout << "No list exist\n";
+		}
+
+		while (currStud != NULL)
+		{
+			if (currStud->ID = key)
+			{
+				std::cout << "Student Found\n";
+				break;
+			}
+			else currStud = currStud->nextStud;
+		}
+		if (currStud == NULL)
+		{
+			std::cout << "No students found\n";
+		}
+		else if (currStud != NULL && currStud->ID == key)
+		{
+			curr = currStud;
+			return;
+		}
 	}
 
 
