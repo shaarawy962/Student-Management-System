@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+
 class SubjectList;
 
 class Subject

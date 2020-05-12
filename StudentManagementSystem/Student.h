@@ -11,7 +11,9 @@ private:
 	std::string dept;
 	int numberOfCourses;
 	SubjectList* Courses;
+	unsigned int ID;
 	Student* nextStud;
+	static unsigned int StudentCount;
 
 public:
 
@@ -22,6 +24,7 @@ public:
 		numberOfCourses = 0;
 		Courses = new SubjectList;
 		nextStud = nullptr;
+		ID = ++StudentCount;
 	}
 
 	Student(std::string name, std::string department, int numOfCourses)
@@ -54,7 +57,23 @@ private:
 	Student* DummyNode;
 	Student* head;
 	Student* tail;
+	Student* curr;
 	unsigned int Size;
+
+	/*Student* search(Student* param)
+	{
+		Student* curr = head;
+		
+		while (curr != NULL)
+		{
+			if (curr == param)
+				return curr;
+			else
+			{
+				curr = curr->nextStud;
+			}
+		}
+	}*/
 
 public:
 	class iterator
@@ -120,6 +139,7 @@ public:
 		tail = NULL;
 		Size = 0;
 		DummyNode = NULL;
+		curr = NULL;
 	}
 
 	void append(Student* param)
@@ -129,6 +149,7 @@ public:
 		if (head == NULL && tail == NULL) {
 			head = param;
 			tail = param;
+			curr = param;
 			tail->nextStud = DummyNode;
 		}
 
@@ -141,6 +162,7 @@ public:
 			tail->nextStud = param;
 			tail = param;
 			tail->nextStud = DummyNode;
+			curr = param;
 		}
 		++Size;
 	}
@@ -239,10 +261,13 @@ public:
 		std::cin.ignore(1000, '\n');
 	}
 
-	Student* getHead()
+	Student* getCurr()
 	{
-		return head;
+		return curr;
 	}
+
 
 	protected:
 };
+
+unsigned int Student::StudentCount = 2018000;

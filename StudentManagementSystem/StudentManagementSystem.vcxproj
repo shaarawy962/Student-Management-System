@@ -153,6 +153,7 @@
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Subject.h" />
     <ClInclude Include="Student.h" />
+    <ClInclude Include="userInterface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
