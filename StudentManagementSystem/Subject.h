@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 
+class Student;
 class SubjectList;
 
 class Subject
@@ -12,16 +13,20 @@ private:
 	double gradePointAverage;
 	char grade;
 	int total;
-	Subject* next;
-
+	Subject* nextSubject;
 public:
+	Subject* next()
+	{
+		return nextSubject;
+	}
+
 	Subject()
 	{
 		subjectName = "";
 		gradePointAverage = 0.0;
 		grade = '\0';
 		total = 0;
-		next = NULL;
+		nextSubject = NULL;
 	}
 	
 	Subject(std::string name, double average, char Grade, int Total)
@@ -30,7 +35,7 @@ public:
 		gradePointAverage = average;
 		grade = Grade;
 		total = Total;
-		next = NULL;
+		nextSubject = NULL;
 	}
 
 	void setData(std::string name, double average, char Grade, int Total)
@@ -39,7 +44,7 @@ public:
 		gradePointAverage = average;
 		grade = Grade;
 		total = Total;
-		next = NULL;
+		nextSubject = NULL;
 	}
 
 	friend class SubjectList;
@@ -55,10 +60,11 @@ public:
 
 	friend std::ostream& operator <<(std::ostream& out, Subject& param)
 	{
-		out << param.subjectName << "\n";
-		out << param.gradePointAverage << "\n";
-		out << param.grade << "\n";
-		out << param.total << "\n";
+		out << "Subject name: " << param.subjectName << "\n";
+		out << "GPA: " << param.gradePointAverage << "\n";
+		out << "Grade: " << param.grade << "\n";
+		out << "Total marks: " << param.total << "\n";
+		return out;
 	}
 };
 
@@ -92,6 +98,8 @@ private:
 	Subject* head;
 	Subject* tail;
 	unsigned int Size;
+	unsigned int maxSize;
+	int count = 0;
 
 public:
 	class iterator
@@ -114,7 +122,7 @@ public:
 		{
 			if (currentNode == NULL)
 				throw std::out_of_range("cannot increase bigger than list size");
-			currentNode = currentNode->next;
+			currentNode = currentNode->nextSubject;
 			return *this;
 		}
 
@@ -166,7 +174,7 @@ public:
 		if (head == NULL && tail == NULL) {
 			head = param;
 			tail = param;
-			tail->next = DummyNode;
+			tail->nextSubject = DummyNode;
 		}
 
 		//[] -> = tail & head
@@ -175,11 +183,16 @@ public:
 
 		else
 		{
-			tail->next = param;
+			tail->nextSubject = param;
 			tail = param;
-			tail->next = DummyNode;
+			tail->nextSubject = DummyNode;
 		}
 		++Size;
+	}
+
+	void setMax(unsigned int size)
+	{
+		maxSize = size;
 	}
 
 	/*void erase(iterator position)
@@ -270,14 +283,26 @@ public:
 
 	void AddSubject()
 	{
-		Subject* curr = new Subject();
-		std::cin >> *curr;
-		append(curr);
+		while (count < maxSize)
+		{
+			Subject* curr = new Subject();
+			std::cin >> *curr;
+			append(curr);
+			count++;
+			return;
+		}
+		std::cout << "Subject list is full\n";
 	}
 
 	friend std::ostream& operator <<(std::ostream& out, SubjectList& param)
 	{
-		
+		Subject* curr = param.head;
+		while (curr !=NULL)
+		{
+			out << *curr;
+			curr = curr->next();
+		}
+		return out;
 	}
 
 protected:

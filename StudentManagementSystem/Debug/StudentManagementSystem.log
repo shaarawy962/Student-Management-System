@@ -1,2 +1,3 @@
 ﻿  StudentManagementSystem.cpp
+C:\Users\mhsha\source\repos\StudentManagementSystem\StudentManagementSystem\Subject.h(286,16): warning C4018: '<': signed/unsigned mismatch
   StudentManagementSystem.vcxproj -> C:\Users\mhsha\source\repos\StudentManagementSystem\Debug\StudentManagementSystem.exe

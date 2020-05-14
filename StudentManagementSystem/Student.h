@@ -9,23 +9,26 @@ class Student
 private:
 	std::string Name;
 	std::string dept;
-	int numberOfCourses;
-	SubjectList* Courses;
+	unsigned int numberOfCourses;
+	SubjectList* Courses = new SubjectList;
 	unsigned int ID;
-	Student* nextStud;
 	static unsigned int StudentCount;
-
+	Student* nextStud;
 public:
+	Student* next()
+	{
+		return nextStud;
+	}
 
 	Student()
 	{
 		Name = "";
 		dept = "";
 		numberOfCourses = 0;
-		Courses = new SubjectList;
 		nextStud = nullptr;
 		ID = ++StudentCount;
 	}
+
 
 	Student(std::string name, std::string department, int numOfCourses)
 	{
@@ -50,10 +53,11 @@ public:
 
 	friend std::ostream& operator <<(std::ostream& out, Student& param)
 	{
-		out << param.Name << "\n";
-		out << param.dept << "\n";
-		out << param.ID << "\n";
-		out << param.Courses;
+		out << "Student's name: " << param.Name << "\n";
+		out << "Student's department: " << param.dept << "\n";
+		out << "Student's ID: " << param.ID << "\n";
+		out << "Student's Courses:\n" << *(param.Courses) << "\n";
+		return out;
 	}
 
 	friend class StudentList;
@@ -261,12 +265,16 @@ public:
 		return out;
 	}*/
 
-	void AddStudent()
+	void AddStudents(int iter = 1)
 	{
-		Student* curr = new Student();
-		std::cin >> *curr;
-		append(curr);
-		std::cin.ignore(1000, '\n');
+		for (int i = 0; i < iter; i++)
+		{
+			Student* curr = new Student();
+			std::cin >> *curr;
+			append(curr);
+			std::cin.ignore(1000, '\n');
+			curr->Courses->setMax(curr->numberOfCourses);
+		}
 	}
 
 	Student* getCurr()
@@ -285,9 +293,10 @@ public:
 
 		while (currStud != NULL)
 		{
-			if (currStud->ID = key)
+			if (currStud->ID == key)
 			{
 				std::cout << "Student Found\n";
+				curr = currStud;
 				break;
 			}
 			else currStud = currStud->nextStud;
@@ -301,6 +310,17 @@ public:
 			curr = currStud;
 			return;
 		}
+	}
+
+	friend std::ostream& operator <<(std::ostream& out, StudentList& param)
+	{
+		Student* curr = param.head;
+		while (curr != NULL)
+		{
+			out << *curr;
+			curr = curr->next();
+		}
+		return out;
 	}
 
 
